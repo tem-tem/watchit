@@ -2,7 +2,8 @@ class UsersController < ApplicationController
 
   def show
    @user = User.find(params[:id])
-   debugger
+   # классная штука. Тормозит все нахер, и можно внимательно потыкать
+   #debugger
   end
 
   def new
@@ -10,10 +11,11 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)    # Not the final implementation!
+    @user = User.new(user_params)
     if @user.save
+      log_in @user
       flash[:success] = 'Welcome Home'
-      redirect_to @user
+      redirect_to root_path
     else
       render 'new'
     end

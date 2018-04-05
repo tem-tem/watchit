@@ -1,4 +1,11 @@
 <% content_for :head do %>
 <title>Watchit</title>
 <% end %>
-<%= link_to "sign up", signup_path %>
+
+<% if logged_in? %>
+  <%= link_to current_user.name, current_user %>
+  <%= link_to "Log out", logout_path, method: :delete %>
+<% else %>
+  <%= link_to "sign up", signup_path %>
+  <%= link_to "log in", login_path %>
+<% end %>
