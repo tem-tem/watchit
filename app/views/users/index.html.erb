@@ -2,5 +2,11 @@
 <% @users.each do |u| %>
   <div>
     <%= link_to u.name, u %>
-  </div>  
+    <!-- проверяет на админство и не ставит кнопку удолить рядом с собой -->
+    <!-- ШОБ НЕ УДОЛИТЬСЯ -->
+    <% if current_user.admin? && !current_user?(u) %>
+      | <%= link_to "delete", u, method: :delete,
+                                 data: {confirm: "you sure"} %>
+    <% end %>
+  </div>
 <% end %>
