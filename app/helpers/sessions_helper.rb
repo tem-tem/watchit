@@ -13,7 +13,7 @@ module SessionsHelper
   end
 
   # true if current user is the given user
-  def current_user?
+  def current_user?(user)
     user == current_user
   end
 
@@ -50,7 +50,7 @@ module SessionsHelper
 
   # Redirects to stored location (or to the default)
   def redirect_back_or(default)
-    redirect_to(session[:forwarding_url]) || default)
+    redirect_to(session[:forwarding_url] || default)
     session.delete(:forwarding_url)
   end
 

@@ -1,1 +1,6 @@
-<%= @user.name %>, <%= @user.email %>
+<%= @user.name %>,
+<% if @user == current_user %>
+  <%= @user.email %>
+<% else %>
+  you are not allowed to see email
+<% end %>
