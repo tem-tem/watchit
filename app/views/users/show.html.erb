@@ -1,3 +1,5 @@
+<% provide(:title, "Your profile") %>
+
 <%= @user.name %>,
 <% if @user == current_user || current_user.admin? %>
   <%= @user.email %>
