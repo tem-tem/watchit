@@ -1,0 +1,14 @@
+<div id="list-<%= list.id %>">
+  <div class="title">
+    <%= list.title %>
+  </div>
+  <div class="author">
+    <%= list.user.name %>
+  </div>
+  <div class="hearts">
+    <%= list.hearts %>
+  </div>
+  <div class="timestamp">
+    <%= list.created_at.to_date %>
+  </div>
+</div>

@@ -15,7 +15,7 @@ User.create!(
   activated: true,
   activated_at: Time.zone.now)
 
-9999.times do |n|
+99.times do |n|
   name = Faker::Name.name
   email = "example-#{n+1}@watchit.com"
   password = "password"
@@ -26,4 +26,11 @@ User.create!(
     password_confirmation: password,
     activated: true,
     activated_at: Time.zone.now)
+end
+
+
+users = User.order(:created_at).take(6)
+50.times do
+  title = Faker::Lorem.sentence
+  users.each { |user| user.lists.create!(title: title) }
 end

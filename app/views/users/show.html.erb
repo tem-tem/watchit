@@ -1,8 +1,19 @@
 <% provide(:title, "Your profile") %>
 
+<%= link_to 'Create List', new_user_list_path(current_user) %>
+
 <%= @user.name %>,
 <% if @user == current_user || current_user.admin? %>
   <%= @user.email %>
 <% else %>
   you are not allowed to see email
+<% end %>
+
+<% if @user.lists.any? %>
+  <div class="lists">
+    <h3>Lists</h3>
+    <div class="list">
+      <%= render @lists %>
+    </div>
+  </div>
 <% end %>

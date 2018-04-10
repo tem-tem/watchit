@@ -9,8 +9,7 @@ class UsersController < ApplicationController
 
   def show
    @user = User.find(params[:id])
-   # классная штука. Тормозит все нахер, и можно внимательно потыкать
-   #debugger
+   @lists = @user.lists
   end
 
   def new
