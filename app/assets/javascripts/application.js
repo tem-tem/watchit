@@ -14,5 +14,4 @@
 //= require jquery
 //= require jquery-ui
 //= require turbolinks
-//= require vue
 //= require_tree .

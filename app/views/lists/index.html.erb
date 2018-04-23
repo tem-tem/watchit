@@ -1,15 +1,3 @@
-<div id="lists">
-  <div
-    is="list-row"
-    v-for="list in lists"
-    :list="list">
-    <div>{{ list.title }}</div>
-  </div>
-</div>
-
-<%= link_to "VUE", user_lists_path(current_user), remote: true %>
-
--- Vue above --
 <% @lists.each do |l| %>
   <div>
     <%= link_to l.title, user_list_path(current_user, l) %>
@@ -17,7 +5,3 @@
     <%= link_to 'edit', edit_user_list_path(current_user, l) %>
   </div>
 <% end %>
-
-<script type="text/x-template" id="list-row">
-  <div>{{ list.title }}</div>
-</script>
