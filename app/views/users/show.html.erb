@@ -2,6 +2,9 @@
 
 <%= link_to 'Create List', new_user_list_path(current_user) %>
 <%= link_to 'My Lists', user_lists_path(current_user) %>
+<%= link_to 'Add Movie', new_movie_path %>
+<%= link_to 'All Movies', movies_path %>
+
 
 <%= @user.name %>,
 <% if @user == current_user || current_user.admin? %>

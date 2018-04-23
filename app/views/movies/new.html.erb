@@ -1,0 +1,76 @@
+<%= content_for :head do %>
+  <style>
+
+  </style>
+<% end %>
+<%= form_for @movie do |f| %>
+  <%= f.text_field :title, id: "movie-title-field" %>
+  <%= f.check_box :show, id: "show" %>
+  <%= f.text_field :poster, id: "poster" %>
+  <%= f.submit 'ok' %>
+<% end %>
+
+<div id="movie-image">
+
+</div>
+
+<script>
+  $( document ).ready( function() {
+    console.log("ready");
+    var title = $("#movie-title-field");
+    var movie_titles = [];
+    var tmdbAPI = "https://api.themoviedb.org/3/search/multi";
+    var request = {
+        api_key: "018f051c7c89b548ff708f984dfbf56f",
+        query: title.val() };
+    var cache = {};
+
+    title.keyup(function() {
+      request.query = title.val();
+      title.autocomplete({
+        delay: 500,
+        minLength: 2,
+        source: function( request, response ) {
+          var query = title.val();
+          if ( query in cache ) {
+            response( cache[ query ] );
+            return;
+            }
+          console.log("get starts here");
+          $.get( tmdbAPI, {
+              api_key: "018f051c7c89b548ff708f984dfbf56f",
+              query: title.val() } )
+            .done(function(data){
+              movie_titles = [];
+              $.each(data.results, function(key, movie){
+                if (movie.media_type == "movie") {
+                  movie_titles.push({label: movie.original_title,
+                                     show: false,
+                                     poster: movie.poster_path});
+                } else if (movie.media_type == "tv") {
+                  movie_titles.push({label: movie.name,
+                                     show: true,
+                                     poster: movie.poster_path});
+                }
+              });
+              cache[ query ] = movie_titles;
+              response( movie_titles );
+            });
+        },
+
+        select: function(event, ui){
+          console.log(ui.item.show, ui.item.poster);
+          if (ui.item.show){
+            $("#show").prop('checked', true);
+          } else {
+            $("#show").prop('checked', false);
+          }
+          $("#poster").val(ui.item.poster);
+          src = "https://image.tmdb.org/t/p/w185" + ui.item.poster;
+          $("#movie-image").html("<img src="+src+" />")
+        }
+      });
+    });
+
+});
+</script>

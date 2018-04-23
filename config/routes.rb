@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   default_url_options :host => "localhost:3000"
   root 'static_pages#index'
   get '/signup', to: 'users#new'
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :lists
   end
+  resources :movies
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [ :new, :create, :edit, :update]
 end

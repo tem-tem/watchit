@@ -1,0 +1,5 @@
+<%= form_for [current_user, @list] do |f| %>
+  <%= f.text_field :title %>
+  <%= f.check_box :is_private %>
+  <%= f.submit 'ok' %>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180410175754) do
+ActiveRecord::Schema.define(version: 20180423031828) do
 
   create_table "lists", force: :cascade do |t|
     t.string "title"
@@ -21,6 +21,25 @@ ActiveRecord::Schema.define(version: 20180410175754) do
     t.integer "hearts"
     t.index ["user_id", "created_at"], name: "index_lists_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_lists_on_user_id"
+  end
+
+  create_table "movie_lists", force: :cascade do |t|
+    t.integer "movie_id"
+    t.integer "list_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id"], name: "index_movie_lists_on_list_id"
+    t.index ["movie_id"], name: "index_movie_lists_on_movie_id"
+  end
+
+  create_table "movies", force: :cascade do |t|
+    t.string "title"
+    t.string "poster"
+    t.boolean "show", default: false
+    t.integer "hearts"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_movies_on_title", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -36,6 +55,7 @@ ActiveRecord::Schema.define(version: 20180410175754) do
     t.datetime "activated_at"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["name"], name: "index_users_on_name", unique: true
   end
 
