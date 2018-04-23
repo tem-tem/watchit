@@ -1,0 +1,7 @@
+<% @lists.each do |l| %>
+  <div>
+    <%= link_to l.title, user_list_path(current_user, l) %>
+    <%= link_to 'delete', user_list_path(current_user, l), method: :delete %>
+    <%= link_to 'edit', edit_user_list_path(current_user, l) %>
+  </div>
+<% end %>

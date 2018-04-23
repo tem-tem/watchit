@@ -1,6 +1,7 @@
 <% provide(:title, "Your profile") %>
 
 <%= link_to 'Create List', new_user_list_path(current_user) %>
+<%= link_to 'My Lists', user_lists_path(current_user) %>
 
 <%= @user.name %>,
 <% if @user == current_user || current_user.admin? %>

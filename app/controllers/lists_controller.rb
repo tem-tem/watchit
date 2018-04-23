@@ -1,5 +1,13 @@
 class ListsController < ApplicationController
 
+  def index
+    @lists = current_user.lists.all
+  end
+
+  def show
+    @list = List.find(params[:id])
+  end
+
   def new
     @list = current_user.lists.build if logged_in?
   end
@@ -12,6 +20,29 @@ class ListsController < ApplicationController
     else
       flash[:danger] = @list.errors.full_messages
       render :new
+    end
+  end
+
+  def edit
+    @list = current_user.lists.find(params[:id])
+  end
+
+  def update
+    @list = current_user.lists.find(params[:id])
+    @list.update(list_params)
+    if @list.valid?
+      flash[:success] = "List #{@list.title} has been updated!"
+      redirect_to user_lists_path(current_user)
+    else
+      flash[:danger] = @list.errors.full_messages
+      render :edit
+    end
+  end
+
+  def destroy
+    @list = current_user.lists.find(params[:id])
+    if @list.destroy
+      redirect_to user_lists_path(current_user)
     end
   end
 
