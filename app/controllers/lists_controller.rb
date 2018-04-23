@@ -2,6 +2,10 @@ class ListsController < ApplicationController
 
   def index
     @lists = current_user.lists.all
+    respond_to do |format|
+      format.html
+      format.json {render json: @lists}
+    end
   end
 
   def show
