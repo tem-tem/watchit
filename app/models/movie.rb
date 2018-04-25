@@ -3,6 +3,5 @@ class Movie < ApplicationRecord
   has_many :lists, through: :movie_lists
 
   validates :title, presence: true
-  validates :show, presence: true
-  validates :poster, presence: true
+  validates :link, presence: true
 end

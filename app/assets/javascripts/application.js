@@ -19,6 +19,7 @@
 //= require bootstrap-sprockets
 
 $(document).ready(function(){
+  var token = $( 'meta[name="csrf-token"]' ).attr( 'content' );
   var query_bg = $("#humongous-input-holder");
   var query_input = $("#search-query");
   var modal_box = $("#modal-box");
@@ -28,10 +29,11 @@ $(document).ready(function(){
       api_key: "018f051c7c89b548ff708f984dfbf56f",
       query: query_input.val() };
   var cache = {};
+  var movie_data = {};
 
   function show_query(value){
     query_input.val(value);
-    query_bg.show(100, function(){
+    query_bg.show(10, function(){
       query_input.focus();
     });
   }
@@ -42,26 +44,21 @@ $(document).ready(function(){
   }
 
   function show_modal(movie){
-    modal_box.show(100);
+    modal_box.show(300, 'easeOutExpo');
 
-    $.ajax({
-      // url: "/movies/new",
-      // type: 'GET'
-    });
     src = "https://image.tmdb.org/t/p/w780" + movie.poster;
     $("#movie-poster").html("<img src="+src+" />")
     $("#modal-title").html(movie.label);
     $("#movie-title-field").val(movie.label);
-    if (movie.show){
-      $("#show-check").prop('checked', true);
-    } else {
-      $("#show-check").prop('checked', false);
-    }
-    $("#movie-id").val(movie.id);
+    movie_data = {
+      title: movie.label,
+      show: movie.show,
+      link: movie.id
+    };
   }
 
-  function close_modal(){
-    modal_box.hide(50);
+  $.CloseModal = function(){
+    modal_box.hide(100);
   }
 
   function call_autocomplete(){
@@ -115,15 +112,15 @@ $(document).ready(function(){
     });
   }
 
-    $(".add-movie-button").click(function(){
-        show_query();
-        call_autocomplete();
-    });
+  $(".add-movie-button").click(function(){
+      show_query();
+      call_autocomplete();
+  });
 
-    $(document).keyup(function(e) {
+  $(document).keyup(function(e) {
     if (e.keyCode == 27) {
       if (query_bg.is(":hidden")){
-        close_modal();
+        $.CloseModal();
       } else {
         close_query();
       }
@@ -133,5 +130,16 @@ $(document).ready(function(){
       call_autocomplete();
 
       }
+  });
+
+
+  $("#add-movie-modal").click(function(){
+    var selected_list_id = $("#selected-list").val();
+    $.ajax({
+      url: "/movies",
+      headers:{'X-CSRF-Token': token},
+      data: {movie_data: movie_data, list_id: selected_list_id},
+      type: 'POST'
     });
+  });
 });

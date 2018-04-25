@@ -8,8 +8,13 @@ class UsersController < ApplicationController
   end
 
   def show
-   @user = User.find(params[:id])
-   @lists = @user.lists
+    if logged_in?
+      @user = current_user
+      @lists = @user.lists
+    else
+      redirect_to login_path
+    end
+
   end
 
   def new

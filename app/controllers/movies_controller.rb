@@ -12,25 +12,28 @@ class MoviesController < ApplicationController
   end
 
   def create
-    # @movielist = MovieList.new(list_id: params[:list_id])
-    # @list = List.new(params[:list_id])
-    # @movie = @list.movie.build(movie_params)
-
+    @list = List.find(params[:list_id])
+    @movie = Movie.create_with(movie_params).find_or_create_by(link: movie_params[:link])
+    @movielist = @list.movie_lists.build(movie: @movie)
     respond_to do |format|
       if @movie.save
-        flash.now[:success] = "Movie has been added!"
-        format.js
+        if @movielist.save
+          flash.now[:success] = "Movie has been added!"
+          format.js
+        else
+          flash.now[:danger] = @movielist.errors.full_messages
+          # debugger
+        end
       else
-        flash[:danger] = @movie.errors.full_messages
-        render :new
+        flash.now[:danger] = @movie.errors.full_messages
       end
     end
   end
 
   private
     def movie_params
-      params.require(:movie).permit(:title,
-                                    :poster,
+      params.require(:movie_data).permit(:title,
+                                    :link,
                                     :show)
     end
 

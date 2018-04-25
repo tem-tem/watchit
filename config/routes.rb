@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
   default_url_options :host => "localhost:3000"
-  root 'static_pages#index'
+
+  root 'users#show'
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
   get '/login', to: 'sessions#new'

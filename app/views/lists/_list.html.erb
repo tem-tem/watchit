@@ -11,5 +11,13 @@
     <div class="timestamp">
       <%= list.created_at.to_date %>
     </div>
+
+    <div id="movies-holder">
+      <%if list.movie_lists.any? %>
+        <% list.movie_lists.each do |movie| %>
+          <%= render movie.movie %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
