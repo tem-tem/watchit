@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180423031828) do
+ActiveRecord::Schema.define(version: 20180425031123) do
 
   create_table "lists", force: :cascade do |t|
     t.string "title"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20180423031828) do
 
   create_table "movies", force: :cascade do |t|
     t.string "title"
-    t.string "poster"
+    t.string "link"
     t.boolean "show", default: false
     t.integer "hearts"
     t.datetime "created_at", null: false
