@@ -9,15 +9,16 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  resources :lists
   resources :users do
     resources :lists
   end
-
-  resources :movies
+  resources :lists
   resources :lists do
     resources :movies
   end
+  resources :movie_lists
+  resources :movies
+  
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [ :new, :create, :edit, :update]
 end

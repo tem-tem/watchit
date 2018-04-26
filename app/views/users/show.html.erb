@@ -21,22 +21,9 @@
   </div>
 <% end %>
 
-<div class="modal-box container" id="modal-box" style="display: none">
-  <div class="d-inline" id="movie-poster"></div>
-  <div class="d-inline-block">
-    <div class="" id="modal-title"></div>
-    <label>Select list: </label>
-    <select id="selected-list">
-      <option value="">Select one...</option>
-      <% @lists.each do |l| %>
-        <option value="<%=l.id%>"><%=l.title%></option>
-      <% end %>
-    </select>
-    <div id="add-movie-modal">
-            add-movie-button
-    </div>
-  </div>
-</div>
+<div id="movie-details-modal-holder"></div>
+
+
 
 <div id="humongous-input-holder" style="display: none">
   <div class="humongous-input-background">

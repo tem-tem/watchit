@@ -17,19 +17,20 @@
 //= require_tree .
 //= require popper
 //= require bootstrap-sprockets
+var glob_movie_id = "";
+var open_modal;
 
 $(document).ready(function(){
   var token = $( 'meta[name="csrf-token"]' ).attr( 'content' );
   var query_bg = $("#humongous-input-holder");
   var query_input = $("#search-query");
-  var modal_box = $("#modal-box");
   var movie_titles = [];
   var tmdbAPI = "https://api.themoviedb.org/3/search/multi";
   var request = {
       api_key: "018f051c7c89b548ff708f984dfbf56f",
       query: query_input.val() };
   var cache = {};
-  var movie_data = {};
+
 
   function show_query(value){
     query_input.val(value);
@@ -37,28 +38,32 @@ $(document).ready(function(){
       query_input.focus();
     });
   }
+
   function close_query(){
     query_bg.hide(50, function(){
       query_input.val("");
     });
   }
 
-  function show_modal(movie){
-    modal_box.show(300, 'easeOutExpo');
-
-    src = "https://image.tmdb.org/t/p/w780" + movie.poster;
-    $("#movie-poster").html("<img src="+src+" />")
-    $("#modal-title").html(movie.label);
-    $("#movie-title-field").val(movie.label);
-    movie_data = {
+  function show_movie_modal(movie){
+    var data = {
       title: movie.label,
       show: movie.show,
-      link: movie.id
+      tmdb_id: movie.id,
+      poster_path: movie.poster
     };
+    console.log(data)
+    // create or find movie
+    $.ajax({
+      url: "/movies",
+      type: 'POST',
+      headers:{'X-CSRF-Token': token},
+      data: {movie: data}
+    });
   }
 
-  $.CloseModal = function(){
-    modal_box.hide(100);
+  $.CloseModal = function(el){
+    el.hide(100, 'easeOutExpo');
   }
 
   function call_autocomplete(){
@@ -79,7 +84,7 @@ $(document).ready(function(){
             movie_titles = [];
             $.each(data.results.slice(0, 5), function(key, movie){
               if (movie.media_type == "movie") {
-                movie_titles.push({label: movie.original_title,
+                movie_titles.push({label: movie.title,
                                    show: false,
                                    id: movie.id,
                                    poster: movie.poster_path });
@@ -96,18 +101,8 @@ $(document).ready(function(){
       },
 
       select: function(event, ui){
-        console.log(ui.item.show, ui.item.poster);
         close_query();
-        show_modal(ui.item);
-
-        // if (ui.item.show){
-        //   $("#show").prop('checked', true);
-        // } else {
-        //   $("#show").prop('checked', false);
-        // }
-        // $("#poster").val(ui.item.poster);
-        // src = "https://image.tmdb.org/t/p/w185" + ui.item.poster;
-        // $("#movie-image").html("<img src="+src+" />")
+        show_movie_modal(ui.item);
       }
     });
   }
@@ -120,7 +115,7 @@ $(document).ready(function(){
   $(document).keyup(function(e) {
     if (e.keyCode == 27) {
       if (query_bg.is(":hidden")){
-        $.CloseModal();
+        $.CloseModal(open_modal);
       } else {
         close_query();
       }
@@ -132,14 +127,4 @@ $(document).ready(function(){
       }
   });
 
-
-  $("#add-movie-modal").click(function(){
-    var selected_list_id = $("#selected-list").val();
-    $.ajax({
-      url: "/movies",
-      headers:{'X-CSRF-Token': token},
-      data: {movie_data: movie_data, list_id: selected_list_id},
-      type: 'POST'
-    });
-  });
 });

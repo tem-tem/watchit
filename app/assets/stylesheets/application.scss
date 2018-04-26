@@ -23,16 +23,19 @@ body{
   background-color: $bg-color;
 }
 .image-placeholder {
-    background-color: #eee;
-    display: flex;
-    height: 100%;
-    margin: 5px;
+  background-color: #eee;
+  display: flex;
+  height: 80vh;
+  width: 515px;
 }
-
 .image-placeholder > h4 {
     align-self: center;
     text-align: center;
     width: 100%;
+}
+.image-placeholder::after{
+  content: '';
+  width: 780px;
 }
 #movie-poster > img{
   // position: absolute;

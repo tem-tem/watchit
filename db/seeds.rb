@@ -29,7 +29,7 @@ User.create!(
 end
 
 
-users = User.order(:created_at).take(6)
+users = User.order(:created_at)
 10.times do
   title = Faker::Lorem.sentence
   users.each { |user| user.lists.create!(title: title) }

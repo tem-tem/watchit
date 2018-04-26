@@ -1,6 +1,9 @@
+<%= link_to "New Movie", new_movie_path %>
 <% @movies.each do |m| %>
   <div>
-    <%= m.title %>
+    <%= link_to m.title, movie_path(m), remote: true %>
   </div>
 
 <% end %>
+
+<div id="movie-details-modal-holder"></div>
