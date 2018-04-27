@@ -1,1 +1,17 @@
-// render movie_details
+var list_id = "<%= j params[:list_id] %>";
+console.log(list_id.length);
+if (list_id.length > 0){
+  $("#list-list_id #movies-holder")
+    .append("<%= j render @movie %>");
+  $.CloseModal($("#movie-details-modal"));
+  <% params.delete("list_id"); %>
+} else {
+  $("#movie-poster").html('');
+  $("#movie-details-modal").animate({
+    position: "absolute",
+    width: "600px",
+    height: "200px",
+    left: currentMousePos.x,
+    top: currentMousePos.y
+  }, 300);
+}

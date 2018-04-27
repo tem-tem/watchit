@@ -6,5 +6,8 @@
     <div class="" id="modal-title">
       <%= movie.title %>
     </div>
+    <%= link_to "Add", movies_path(movie: movie_params, list_id: params[:list_id]),
+                       remote: true,
+                       method: :post %>
   </div>
 </div>

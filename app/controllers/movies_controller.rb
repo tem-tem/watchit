@@ -10,11 +10,19 @@ class MoviesController < ApplicationController
     respond_with( @movie )
   end
 
+  def new
+    @movie_params = movie_params
+    @movie = Movie.new(movie_params)
+    respond_with ( @movie )
+  end
+
   def create
     @movie = Movie.create_with(movie_params).find_or_create_by(tmdb_id: movie_params[:tmdb_id])
     flash.now[:danger] = @movie.errors.full_messages if not @movie.save
+    create_movie_list(@movie.id, params[:list_id])
     respond_to do |format|
-      format.js{ render action: "show", id: @movie.id }
+      format.js{
+      }
     end
   end
 

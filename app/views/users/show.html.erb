@@ -1,28 +1,30 @@
 <% provide(:title, "Your profile") %>
 
-<%= link_to 'Create List', new_user_list_path(current_user) %>
+<!-- <%= link_to 'Create List', new_user_list_path(current_user) %>
 <%= link_to 'My Lists', user_lists_path(current_user) %>
 <%= link_to 'Add Movie', new_movie_path %>
-<%= link_to 'All Movies', movies_path %>
+<%= link_to 'All Movies', movies_path %> -->
 
-<%= @user.name %>,
+<!-- <%= @user.name %>,
 <% if @user == current_user || current_user.admin? %>
   <%= @user.email %>
 <% else %>
   you are not allowed to see email
-<% end %>
+<% end %> -->
 
 <% if @user.lists.any? %>
-  <div class="position-sticky">
-    <h3 >Movie Lists</h3>
-  </div>
-  <div class="lists row flex-row flex-nowrap">
+  <div class="lists row flex-row flex-nowrap" style="padding-top:30px">
     <%= render @lists %>
   </div>
 <% end %>
 
 <div id="movie-details-modal-holder"></div>
 
+<div id="test_move" style="box-shadow: 0 10px 20px rgba(0,0,0,0.2); position:absolute; z-index:9999; background-color:#f8f8f8;font-size:3em;border-radius:10px;">
+  <div style="font-weight: 900">
+    Test placeholder
+  </div>
+</div>
 
 
 <div id="humongous-input-holder" style="display: none">

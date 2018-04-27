@@ -1,17 +1,13 @@
 class MovieListsController < ApplicationController
   def create
-    @movielist = MovieList.new(movielist_params)
+    @movielist = MovieList.new(list_id: params[:list_id],
+                               movie_id: params[:movie_id])
+    debugger
     respond_to do |format|
-      if @movielist.save
-        flash.now[:success] = "Movie has been added!"
-        format.js
-      else
-        flash.now[:danger] = @movielist.errors.full_messages
-      end
+      format.js{
+        flash.now[:danger] = @movielist.errors.full_messages if not @movielist.save
+      }
     end
   end
 
-  def movielist_params
-    params.require[:movie_list].permit(:movie_id, :list_id)
-  end
 end

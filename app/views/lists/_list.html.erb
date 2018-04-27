@@ -1,18 +1,21 @@
-<div class="col-2">
+<div class="col-xl-3 col-lg-4 col-md-5 col-sm-8 col-11">
   <div id="list-<%= list.id %>">
-    <div class="title border-bottom position-sticky">
-      <h1><%= list.title %></h1>
-    </div>
+    <div class="title border-bottom position-sticky", style="height:10vh;">
+      <div class="row">
 
-    <div class="text-right add-movie-button">
-      Add a movie
-    </div>
+      <div class="col-9">
+        <%= list.title %>
+      </div>
+      <div class="col-3">
+        <div class="text-right add-movie-button">
+          <%= link_to "Add Movie", new_movie_list_path(list_id: list.id), remote: true %>
+        </div>
+      </div>
 
-    <div class="timestamp">
-      <%= list.created_at.to_date %>
     </div>
+  </div>
 
-    <div id="movies-holder">
+    <div id="movies-holder" class="movies-list border-bottom">
       <%if list.movie_lists.any? %>
         <% list.movie_lists.each do |movie_list| %>
           <%= render movie_list.movie %>

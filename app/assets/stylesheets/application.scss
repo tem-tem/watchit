@@ -15,12 +15,33 @@
  *= require jquery-ui
  */
 
- @import "bootstrap";
+  @import "bootstrap";
+  @font-face {
+    font-family: 'Akzidenz-Grotesk-Pro';
+    src:font-url('AkzidenzGroteskPro-Light.otf') unquote("format('opentype')");;
+    font-weight: 100;
+    font-style: 100;
+  }
+  @font-face {
+     font-family: 'Akzidenz-Grotesk-Pro';
+     src:url('AkzidenzGroteskPro-Bold.otf') unquote("format('opentype')");;
+     font-weight: 200;
+     font-style: 200;
+   }
+   @font-face {
+      font-family: 'Akzidenz-Grotesk-Pro';
+      src:url('AkzidenzGroteskPro-Super.otf') unquote("format('opentype')");;
+      font-weight: 900;
+      font-style: 900;
+    }
+
 
 $bg-color: #f8f8f8;
 
 body{
   background-color: $bg-color;
+  font-family: 'Akzidenz-Grotesk-Pro';
+  font-weight: 100;
 }
 .image-placeholder {
   background-color: #eee;
@@ -73,6 +94,7 @@ body{
 }
 .humongous-input{
     width: 100%;
+    font-weight: 200 !important;
     font-size: 4em;
     border: none;
     padding: 5vh 2vw;
@@ -81,12 +103,26 @@ body{
 .ui-widget.ui-widget-content {
     border: none !important;
     background: none !important;
-    font-size: 3em;
-    color: #9f9f9f;
+    font-weight: 200 !important;
+    font-family: 'Akzidenz-Grotesk-Pro' !important;
+    font-size: 4em;
+    color: #cdcdcd;
   }
 .ui-state-active{
+  font-family: 'Akzidenz-Grotesk-Pro' !important;
+  font-weight: 200 !important;
   margin: 0 !important;
   border: none !important;
   background: none !important;
   color: #000 !important;
+}
+
+.movies-list{
+  height: 75vh;
+  overflow: auto;
+}
+.movie-in-list{
+  margin: 20px 0;
+  font-size: 1.4em;
+  font-weight: 200;
 }

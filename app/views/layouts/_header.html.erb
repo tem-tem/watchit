@@ -1,9 +1,11 @@
-<div>
+<div class="justify-content-between position-fixed row border-bottom" style="width:100%">
   <% if logged_in? %>
-    <%= link_to current_user.name, current_user %>
-    <%= link_to "All users", users_path %>
-    <%= link_to "Settings", edit_user_path(current_user) %>
+    <div class="col-auto">
+      <%= link_to "New List", new_user_list_path(current_user) %>
+    </div>
+    <div class="col-auto">
     <%= link_to "Log out", logout_path, method: :delete %>
+    </div>
   <% else %>
     <%= link_to "sign up", signup_path %>
     <%= link_to "log in", login_path %>
