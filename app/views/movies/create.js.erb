@@ -7,6 +7,7 @@ if (list_id_param){
     .prepend("<%= j render @movie %>");
   $.CloseModal($("#movie-details-modal"));
   <% params.delete :list_id %>
+  $('.grid').masonry();
 
 } else {
   // Movie will hang
@@ -21,6 +22,6 @@ if (list_id_param){
     height: "135px",
     "border-radius": "10px",
     left: currentMousePos.x,
-    top: currentMousePos.y + 100
+    top: currentMousePos.y
   }, 300, "easeOutExpo");
 }

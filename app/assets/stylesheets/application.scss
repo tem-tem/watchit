@@ -84,7 +84,10 @@ body{
   padding-bottom: 100%;
 }
 
-.grid-item { width: 200px; }
+.grid-item {
+  width: 400px;
+  padding: 10px 30px;
+}
 .grid-item--width2 { width: 400px; }
 
 .humongous-input-background{

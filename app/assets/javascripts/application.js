@@ -120,13 +120,13 @@ $(document).ready(function(){
   });
 
   $(document).on('mousemove', function(event){
-    currentMousePos.x = event.pageX;
-    currentMousePos.y = event.pageY;
+    currentMousePos.x = event.screenX;
+    currentMousePos.y = event.screenY + 100;
     if (follow_mouse) {
 
       follow_mouse.css({
-        left:  event.pageX,
-        top:   event.pageY + 100
+        left:  currentMousePos.x,
+        top:   currentMousePos.y
       });
     }
   });

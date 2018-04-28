@@ -2,18 +2,16 @@
   <div id="list-<%= list.id %>">
     <div class="title border-bottom position-sticky">
       <div class="row">
-
-      <div class="col-9 list-title">
-        <%= list.title %>
-      </div>
-      <div class="col-3">
-        <div class="text-right add-movie-button">
-          <%= link_to "Add Movie", new_movie_list_path(list_id: list.id), remote: true %>
+        <div class="col">
+          <div class="list-title">
+            <%= list.title %>
+          </div>
+          <div class="text-right add-movie-button">
+            <%= link_to "Add Movie", new_movie_list_path(list_id: list.id), remote: true %>
+          </div>
         </div>
       </div>
-
     </div>
-  </div>
 
     <div id="movies-holder" class="movies-list border-bottom">
       <%if list.movie_lists.any? %>

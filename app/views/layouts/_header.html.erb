@@ -1,4 +1,4 @@
-<div class="justify-content-between position-fixed row border-bottom" style="width:100%">
+<div class="justify-content-between row" style="position: sticky; top:0;">
   <% if logged_in? %>
     <div class="col-auto">
       <%= link_to "New List", new_user_list_path(current_user) %>

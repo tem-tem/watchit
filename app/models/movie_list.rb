@@ -4,4 +4,5 @@ class MovieList < ApplicationRecord
   validates :movie, uniqueness: {
                       scope: :list,
                       case_sensetive: false}
+  default_scope { order("created_at DESC") }
 end
