@@ -1,17 +1,26 @@
 var list_id = "<%= j params[:list_id] %>";
-console.log(list_id.length);
-if (list_id.length > 0){
-  $("#list-list_id #movies-holder")
-    .append("<%= j render @movie %>");
+
+if (list_id_param){
+  // Movie has already been added to the list_id
+
+  $("#list-"+list_id+" #movies-holder")
+    .prepend("<%= j render @movie %>");
   $.CloseModal($("#movie-details-modal"));
-  <% params.delete("list_id"); %>
+  <% params.delete :list_id %>
+
 } else {
+  // Movie will hang
+
   $("#movie-poster").html('');
+  follow_mouse = $("#movie-details-modal");
+  hanging_movie_id = "<%= j @movie.id.to_s %>"
+
   $("#movie-details-modal").animate({
     position: "absolute",
-    width: "600px",
-    height: "200px",
+    width: "315px",
+    height: "135px",
+    "border-radius": "10px",
     left: currentMousePos.x,
-    top: currentMousePos.y
-  }, 300);
+    top: currentMousePos.y + 100
+  }, 300, "easeOutExpo");
 }

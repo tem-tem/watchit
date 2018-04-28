@@ -1,2 +1,3 @@
 $("#list-<%= j @movielist.list.id.to_s %> #movies-holder")
-  .append("<%= j render @movielist.movie %>");
+  .prepend("<%= j render @movielist.movie %>");
+hanging_movie_id = 0;

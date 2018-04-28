@@ -13,18 +13,18 @@
 <% end %> -->
 
 <% if @user.lists.any? %>
-  <div class="lists row flex-row flex-nowrap" style="padding-top:30px">
+  <div class="lists grid masonry" style="padding-top:30px">
     <%= render @lists %>
   </div>
 <% end %>
 
 <div id="movie-details-modal-holder"></div>
 
-<div id="test_move" style="box-shadow: 0 10px 20px rgba(0,0,0,0.2); position:absolute; z-index:9999; background-color:#f8f8f8;font-size:3em;border-radius:10px;">
+<!-- <div id="test_move" style="box-shadow: 0 10px 20px rgba(0,0,0,0.2); position:absolute; z-index:9999; background-color:#f8f8f8;font-size:3em;border-radius:10px;">
   <div style="font-weight: 900">
     Test placeholder
   </div>
-</div>
+</div> -->
 
 
 <div id="humongous-input-holder" style="display: none">
@@ -32,3 +32,13 @@
     <input type="text" placeholder="the name of the movie" autofocus class="humongous-input" id="search-query">
   </div>
 </div>
+
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
+<script>
+  $('.grid').masonry({
+    // options
+    itemSelector: '.grid-item',
+    columnWidth: 200
+  });
+</script>

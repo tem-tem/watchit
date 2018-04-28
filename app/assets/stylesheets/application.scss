@@ -84,6 +84,9 @@ body{
   padding-bottom: 100%;
 }
 
+.grid-item { width: 200px; }
+.grid-item--width2 { width: 400px; }
+
 .humongous-input-background{
   position: fixed;
   width: 100%;
@@ -118,11 +121,13 @@ body{
 }
 
 .movies-list{
-  height: 75vh;
-  overflow: auto;
+}
+.list-title{
+  font-size: 2.1em;
+  font-weight: 900;
 }
 .movie-in-list{
   margin: 20px 0;
   font-size: 1.4em;
-  font-weight: 200;
+  font-weight: 100;
 }

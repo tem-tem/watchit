@@ -17,9 +17,11 @@
 //= require_tree .
 //= require popper
 //= require bootstrap-sprockets
-var glob_movie_id;
-var list_id_param;
+
+var hanging_movie_id = 0;
+var list_id_param = 0;
 var open_modal;
+var follow_mouse;
 var currentMousePos = { x: -1, y: -1 };
 
 $(document).ready(function(){
@@ -28,6 +30,8 @@ $(document).ready(function(){
   var query_input = $("#search-query");
   var tmdbAPI = "https://api.themoviedb.org/3/search/multi";
   var cache = {};
+
+
 
   $.ShowInput = function(value){
     query_input.val(value);
@@ -98,6 +102,8 @@ $(document).ready(function(){
 
   $.CloseModal = function(el){
     el.hide(100, 'easeOutExpo');
+    hanging_movie_id = 0;
+    list_id_param = 0;
   }
 
   $(document).keyup(function(e) {
@@ -116,6 +122,13 @@ $(document).ready(function(){
   $(document).on('mousemove', function(event){
     currentMousePos.x = event.pageX;
     currentMousePos.y = event.pageY;
+    if (follow_mouse) {
+
+      follow_mouse.css({
+        left:  event.pageX,
+        top:   event.pageY + 100
+      });
+    }
   });
 
 });
