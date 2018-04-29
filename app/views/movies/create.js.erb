@@ -1,27 +1,38 @@
 var list_id = "<%= j params[:list_id] %>";
 
-if (list_id_param){
-  // Movie has already been added to the list_id
+$.ajax({
+  url: "/movie_lists",
+  type: "POST",
+  headers: { 'X-CSRF-Token': Rails.csrfToken() },
+  data: {movie_id: <%= j @movie.id.to_s %>,
+    list_id: list_id_param}
+  });
 
-  $("#list-"+list_id+" #movies-holder")
-    .prepend("<%= j render @movie %>");
-  $.CloseModal($("#movie-details-modal"));
-  <% params.delete :list_id %>
-  $('.grid').masonry();
-
-} else {
-  // Movie will hang
-
-  $("#movie-poster").html('');
-  follow_mouse = $("#movie-details-modal");
-  hanging_movie_id = "<%= j @movie.id.to_s %>"
-
-  $("#movie-details-modal").animate({
-    position: "absolute",
-    width: "315px",
-    height: "135px",
-    "border-radius": "10px",
-    left: currentMousePos.x,
-    top: currentMousePos.y
-  }, 300, "easeOutExpo");
-}
+// if (list_id_param){
+//   // Movie has already been added to the list_id
+//
+//   $("#list-"+list_id+" #movies-holder")
+//     .prepend("<%= j render @movie %>");
+//   // $.CloseModal($("#movie-details-modal"));
+//   <% params.delete :list_id %>
+//   list_id_param = 0;
+//   $('.grid').masonry();
+//
+// } else {
+//   // Movie will hang
+//
+//   $("#movie-poster").html('');
+//   // follow_mouse = $("#movie-details-modal");
+//   hanging_movie_id = "<%= j @movie.id.to_s %>"
+//
+//   $("#movie-details-modal").animate({
+//     position: "absolute",
+//     width: "315px",
+//     height: "135px",
+//     "border-radius": "10px",
+//     left: "50%",
+//     top: "80vh",
+//     "background-color": "white",
+//     "box-shadow": "0 30px 30px rgba(0, 0, 0, 0.3)"
+//   }, 400, "easeOutExpo");
+// }

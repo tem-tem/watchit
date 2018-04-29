@@ -5,7 +5,7 @@ class MovieListsController < ApplicationController
                                movie_id: params[:movie_id])
     respond_to do |format|
       format.js{
-        flash.now[:danger] = @movielist.errors.full_messages if not @movielist.save
+        flash.now[:danger] = @movielist.errors.full_messages.to_sentence if not @movielist.save
         # debugger
       }
     end

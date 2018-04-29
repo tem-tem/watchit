@@ -1,7 +1,10 @@
-<div class="justify-content-between row" style="position: sticky; top:0;">
+<div class="justify-content-between row border-bottom headliner">
   <% if logged_in? %>
     <div class="col-auto">
       <%= link_to "New List", new_user_list_path(current_user) %>
+    </div>
+    <div class="col-auto">
+      <div id="flash-message" style="display:none;"></div>
     </div>
     <div class="col-auto">
     <%= link_to "Log out", logout_path, method: :delete %>

@@ -43,23 +43,25 @@ body{
   font-family: 'Akzidenz-Grotesk-Pro';
   font-weight: 100;
 }
+
+.headliner{
+  position: fixed;
+  top:0;
+  z-index:1;
+  width:inherit;
+  background-color: $bg-color;
+}
+
 .image-placeholder {
   background-color: #eee;
-  display: flex;
-  height: 80vh;
-  width: 515px;
+  height: 100%;
 }
-.image-placeholder > h4 {
-    align-self: center;
-    text-align: center;
-    width: 100%;
+.image-placeholder > img {
+  height: 100%;
 }
-.image-placeholder::after{
-  content: '';
-  width: 780px;
-}
+
 #movie-poster > img{
-  // position: absolute;
+  position: absolute;
   height: 100%;
 }
 .modal-box{
@@ -109,18 +111,31 @@ body{
 .ui-widget.ui-widget-content {
     border: none !important;
     background: none !important;
-    font-weight: 200 !important;
-    font-family: 'Akzidenz-Grotesk-Pro' !important;
-    font-size: 4em;
-    color: #cdcdcd;
   }
 .ui-state-active{
   font-family: 'Akzidenz-Grotesk-Pro' !important;
-  font-weight: 200 !important;
+  font-weight: 100 !important;
   margin: 0 !important;
   border: none !important;
   background: none !important;
   color: #000 !important;
+}
+.autocomplete-item-with-poster{
+  height: 200px;
+  opacity: 0.5;
+}
+.autocomplete-item-with-poster:hover{
+  opacity: 1;
+}
+.autocomplete-poster{
+  height: 100%;
+  float: right;
+}
+.autocomplete-title{
+  display: inline;
+  font-family: 'Akzidenz-Grotesk-Pro' !important;
+  font-size: 2em;
+  font-weight: 100;
 }
 
 .movies-list{

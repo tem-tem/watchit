@@ -31,7 +31,13 @@ $(document).ready(function(){
   var tmdbAPI = "https://api.themoviedb.org/3/search/multi";
   var cache = {};
 
-
+  $.FlashMessage = function(key, message){
+    console.log(key, message);
+    var color = "class=text-"+key;
+    var div = "<div " + color + " style='white-space:nowrap; overflow:hidden;'>" + message + "</div>";
+    $("#flash-message").html(div);
+    $("#flash-message").fadeIn(40).effect("shake").delay(4000).fadeOut(300);
+  }
 
   $.ShowInput = function(value){
     query_input.val(value);
@@ -73,9 +79,23 @@ $(document).ready(function(){
 
             select: function(event, ui){
               $.CloseInput();
-              $.ShowMovie(ui.item);
+              $.ShowMovie(ui.item, list_id_param);
             }
-          });
+          }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+              var postersrc = "https://image.tmdb.org/t/p/w342/" + item.poster;
+              var poster = "<div class='col-4' style='height:100%;'> <img class='autocomplete-poster' src='" + postersrc + "' /> </div>";
+
+              var title = "<div class='autocomplete-title'>" + item.label + "</div>";
+              var text_info = "<div class='col-8'>" + title + "</div>";
+
+              var full_info = "<div class='autocomplete-item-with-poster'> <div class='row border-bottom' style='height:100%'>" + text_info + poster + "</div></div>";
+
+              return $( "<li class=''></li>" )
+                  .data( "item.autocomplete", item )
+                  .append(full_info)
+                  .appendTo( ul );
+
+          };
   }
 
   $.CloseInput = function(){
@@ -84,7 +104,7 @@ $(document).ready(function(){
     });
   }
 
-  $.ShowMovie = function(movie){
+  $.ShowMovie = function(movie, list){
     var data = {
       title: movie.label,
       show: movie.show,
@@ -93,15 +113,39 @@ $(document).ready(function(){
     };
     // shows movie
     $.ajax({
-      url: "/movies/new",
-      type: 'GET',
+      url: "/movies",
+      type: 'POST',
+      headers: { 'X-CSRF-Token': Rails.csrfToken() },
       data: {movie: data,
-             list_id: list_id_param}
+             list_id: list}
     });
   }
 
   $.CloseModal = function(el){
-    el.hide(100, 'easeOutExpo');
+    el.animate({
+      position: "absolute",
+      width: "10px",
+      height: "10px",
+      left: currentMousePos.x,
+      top: currentMousePos.y,
+      opacity: 0
+    }, 320, function() {
+
+      el.hide();
+    });
+
+    hanging_movie_id = 0;
+    list_id_param = 0;
+  }
+
+  $.DropModal = function(el){
+    el.animate({
+      position: "absolute",
+      top: "150vh"
+    }, 400, 'easeOutExpo', function() {
+      el.hide();
+    });
+
     hanging_movie_id = 0;
     list_id_param = 0;
   }
@@ -109,19 +153,20 @@ $(document).ready(function(){
   $(document).keyup(function(e) {
     if (e.keyCode == 27) {
       if (query_bg.is(":hidden")){
-        $.CloseModal(open_modal);
+        $.DropModal(open_modal);
       } else {
         $.CloseInput();
+        list_id_param = 0;
       }
-
-    } else if ((query_bg.is(":hidden")) && (e.key.length == 1)) {
-      $.ShowInput(e.key);
-      }
+    }
+    // } else if ((query_bg.is(":hidden")) && (e.key.length == 1)) {
+    //   $.ShowInput(e.key);
+    //   }
   });
 
   $(document).on('mousemove', function(event){
     currentMousePos.x = event.screenX;
-    currentMousePos.y = event.screenY + 100;
+    currentMousePos.y = event.screenY;
     if (follow_mouse) {
 
       follow_mouse.css({
@@ -132,3 +177,58 @@ $(document).ready(function(){
   });
 
 });
+
+
+// $(function() {
+//
+//   $( "#name" ).autocomplete({
+//
+//     source: function( request, response ) {
+//
+//      $.ajax({
+//
+//        url: "http://yourhostpath/getdata",
+//
+//        dataType: "json",
+//
+//        data: {
+//
+//            term: request.term
+//
+//        },
+//
+//        success: function( data ) {
+//
+//            response( $.map( data.results, function( result ) {
+//
+//                return {
+//
+//                    label: result.id + " - " + result.label,
+//
+//                    value: result.id,
+//
+//                    imgsrc: result.image
+//
+//                }
+//
+//            }));
+//
+//        }
+//
+//    });
+//
+//     }
+//
+//   }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+//
+//       return $( "<li></li>" )
+//
+//           .data( "item.autocomplete", item )
+//
+//           .append( "<a>" + "<img style='width:25px;height:25px' src='" + item.imgsrc + "' /> " + item.label+ "</a>" )
+//
+//           .appendTo( ul );
+//
+//   };
+//
+// });

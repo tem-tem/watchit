@@ -1,4 +1,10 @@
-$("#list-<%= j @movielist.list.id.to_s %> #movies-holder")
-  .prepend("<%= j render @movielist.movie %>");
-hanging_movie_id = 0;
-$('.grid').masonry();
+var error = "<%= j flash.now[:danger] %>";
+
+if (error) {
+  $.FlashMessage("danger", error);
+} else {
+  $("#list-<%= j @movielist.list.id.to_s %> #movies-holder")
+    .prepend("<%= j render @movielist.movie %>");
+  $('.grid').masonry();
+
+}

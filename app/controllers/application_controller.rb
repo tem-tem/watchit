@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   def create_movie_list(movie_id, list_id)
     movielist = MovieList.new(list_id: list_id,
                                movie_id: movie_id)
-    flash.now[:danger] = movielist.errors.full_messages if not movielist.save
+    if movielist.save
+      movielist
+    else
+      flash.now[:danger] = movielist.errors.full_messages
+    end
   end
 end

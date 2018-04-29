@@ -3,6 +3,7 @@ class MovieList < ApplicationRecord
   belongs_to :list
   validates :movie, uniqueness: {
                       scope: :list,
-                      case_sensetive: false}
+                      case_sensetive: false,
+                      message: 'is already in this list.'}
   default_scope { order("created_at DESC") }
 end
