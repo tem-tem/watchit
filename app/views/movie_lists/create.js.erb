@@ -4,7 +4,7 @@ if (error) {
   $.FlashMessage("danger", error);
 } else {
   $("#list-<%= j @movielist.list.id.to_s %> #movies-holder")
-    .prepend("<%= j render @movielist.movie %>");
+    .prepend("<%= j render @movielist %>");
   $('.grid').masonry();
 
 }

@@ -121,7 +121,7 @@ body{
   color: #000 !important;
 }
 .autocomplete-item-with-poster{
-  height: 200px;
+  height: 15vh;
   opacity: 0.5;
 }
 .autocomplete-item-with-poster:hover{
@@ -130,6 +130,7 @@ body{
 .autocomplete-poster{
   height: 100%;
   float: right;
+  padding: 10px 0;
 }
 .autocomplete-title{
   display: inline;
@@ -144,8 +145,26 @@ body{
   font-size: 2.1em;
   font-weight: 900;
 }
+.movie-in-list-wrap{
+  width: 440px;
+  position: relative;
+}
 .movie-in-list{
-  margin: 20px 0;
+  margin: 5px 0;
   font-size: 1.4em;
   font-weight: 100;
+}
+.movie-in-list-icon{
+  width:42px;
+  height: 36px;
+  opacity:0;
+  text-align: center;
+
+  :hover > & {
+    opacity:0.2;
+  }
+}
+.delete-movie-list{
+  float: right;
+  padding: 0 10px;
 }

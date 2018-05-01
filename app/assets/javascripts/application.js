@@ -17,12 +17,14 @@
 //= require_tree .
 //= require popper
 //= require bootstrap-sprockets
+//= require masonry.pkgd.min
 
 var hanging_movie_id = 0;
 var list_id_param = 0;
 var open_modal;
 var follow_mouse;
 var currentMousePos = { x: -1, y: -1 };
+var shifted = false;
 
 $(document).ready(function(){
   var keys = [];
@@ -82,11 +84,11 @@ $(document).ready(function(){
               $.ShowMovie(ui.item, list_id_param);
             }
           }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-              var postersrc = "https://image.tmdb.org/t/p/w342/" + item.poster;
+              var postersrc = "https://image.tmdb.org/t/p/w154/" + item.poster;
               var poster = "<div class='col-4' style='height:100%;'> <img class='autocomplete-poster' src='" + postersrc + "' /> </div>";
 
               var title = "<div class='autocomplete-title'>" + item.label + "</div>";
-              var text_info = "<div class='col-8'>" + title + "</div>";
+              var text_info = "<div class='col-8' style='padding: 0 3vw;'>" + title + "</div>";
 
               var full_info = "<div class='autocomplete-item-with-poster'> <div class='row border-bottom' style='height:100%'>" + text_info + poster + "</div></div>";
 
@@ -176,59 +178,29 @@ $(document).ready(function(){
     }
   });
 
+  $.fn.shiftback = function(){
+    this.animate({
+      left: 0
+    }, 200);
+    this.removeClass( "is-shifted" );
+  };
+
+  $(document).click(function(event){
+    if ((shifted) && (!$(event.target).parent().parent().parent().hasClass( "is-shifted" ))) {
+      shifted.shiftback();
+      shifted = false;
+    }
+  });
+
+  $(".movie-in-list-delete").click(function(event) {
+    if (shifted){
+      shifted.shiftback();
+    }
+    shifted = $(event.target).parent().parent().parent();
+    shifted.addClass( "is-shifted" );
+    shifted.animate({
+      left: "-100px"
+    }, 320);
+  });
+
 });
-
-
-// $(function() {
-//
-//   $( "#name" ).autocomplete({
-//
-//     source: function( request, response ) {
-//
-//      $.ajax({
-//
-//        url: "http://yourhostpath/getdata",
-//
-//        dataType: "json",
-//
-//        data: {
-//
-//            term: request.term
-//
-//        },
-//
-//        success: function( data ) {
-//
-//            response( $.map( data.results, function( result ) {
-//
-//                return {
-//
-//                    label: result.id + " - " + result.label,
-//
-//                    value: result.id,
-//
-//                    imgsrc: result.image
-//
-//                }
-//
-//            }));
-//
-//        }
-//
-//    });
-//
-//     }
-//
-//   }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-//
-//       return $( "<li></li>" )
-//
-//           .data( "item.autocomplete", item )
-//
-//           .append( "<a>" + "<img style='width:25px;height:25px' src='" + item.imgsrc + "' /> " + item.label+ "</a>" )
-//
-//           .appendTo( ul );
-//
-//   };
-//
-// });

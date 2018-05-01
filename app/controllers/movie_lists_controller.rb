@@ -11,4 +11,9 @@ class MovieListsController < ApplicationController
     end
   end
 
+  def destroy
+    @movielist = MovieList.find(params[:id])
+    @movielist.destroy
+  end
+
 end

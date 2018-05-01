@@ -16,7 +16,7 @@
     <div id="movies-holder" class="movies-list border-bottom">
       <%if list.movie_lists.any? %>
         <% list.movie_lists.each do |movie_list| %>
-          <%= render movie_list.movie %>
+          <%= render movie_list %>
         <% end %>
       <% end %>
     </div>
