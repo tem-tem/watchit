@@ -1,22 +1,37 @@
-<div id="movie-list-<%= movie_list.id %>" style="overflow:hidden;">
-  <div class="movie-in-list-wrap d-flex">
-    <div class="movie-in-list d-inline-flex">
-      <div class="align-middle movie-in-list-icon d-inline my-auto">
-        W
+  <div style="overflow:hidden;">
+    <div id="movie-list-<%= movie_list.id %>" class="movie-in-list-wrap d-flex">
+      <div class="movie-in-list d-inline-flex">
+        <div class="align-middle movie-in-list-eye d-inline my-auto">
+          <%= link_to movie_list,
+                method: :patch,
+                remote: true do %>
+            W
+          <% end %>
+        </div>
+
+        <%= link_to movie_list.movie,
+            class: "align-middle movie-in-list-title d-inline-block #{movie_list.seen?}",
+            style: "width:265px;",
+            id: "movie-list-title",
+            remote: true do %>
+          <%= movie_list.movie.title %>
+        <% end %>
+
+        <div class="align-middle movie-in-list-delete d-inline-block my-auto"
+             id="<%= movie_list.id %>">
+          <img class="d-inline-block"
+               id="<%= movie_list.id %>"
+               src="icons/cross.svg"
+               alt="Delete"
+               style="height:16px">
+        </div>
       </div>
-      <div class="align-middle movie-in-list-title d-inline-block" style="width:270px;">
-        <%= movie_list.movie.title %>
-      </div>
-      <div class="align-middle movie-in-list-icon movie-in-list-delete d-inline-block my-auto">
-        <img class="d-inline-block" src="icons/cross.svg" alt="Delete" style="height:16px">
-      </div>
+      <%= link_to movie_list,
+            method: :delete,
+            remote: true,
+            class: "movie-in-list-delete-red align-middle text-light bg-danger d-inline-flex",
+            style: "float:right;padding: 0 15px;" do %>
+        <div class="movie-in-list my-auto">Delete</div>
+      <% end %>
     </div>
-    <%= link_to movie_list_path(movie_list),
-          method: :delete,
-          remote: true,
-          class: "delete-movie-list align-middle text-light bg-danger d-inline-flex",
-          style: "float:right;padding: 0 10px;" do %>
-      <div class="movie-in-list my-auto">Delete</div>
-    <% end %>
   </div>
-</div>

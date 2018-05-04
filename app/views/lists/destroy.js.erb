@@ -1,0 +1,14 @@
+var error = "<%= j flash.now[:danger] %>";
+
+if (error) {
+  $.FlashMessage("danger", error);
+
+} else {
+  list = $("#list-<%= j @list.id.to_s %>");
+  $(".grid").masonry()
+    .masonry( 'remove', list )
+    // layout
+    .masonry();
+
+  list.remove();
+}

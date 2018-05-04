@@ -1,0 +1,11 @@
+var movielist = $("#movie-list-<%= j @movielist.id.to_s %>");
+var list = $("#list-<%= j @movielist.list.id.to_s %> #movies-holder");
+var seen_div = $("#list-<%= j @movielist.list.id.to_s %> #seen");
+
+movielist.remove();
+
+<% if @movielist.seen %>
+  seen_div.prepend("<%= j render @movielist %>");
+<% else %>
+  list.prepend("<%= j render @movielist %>");
+<% end %>

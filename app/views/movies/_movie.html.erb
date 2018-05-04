@@ -1,15 +1,33 @@
-<!-- <div class="modal-box container" id="movie-details-modal" style="display: none">
-  <div class="d-inline-block" id="movie-poster" style="height: 100%">
-    <div class="image-placeholder">
-      <img src="no-poster.svg" alt="no-poster">
+
+<!-- <div class="modal-box" id="movie-details-modal" style="display: none">
+  <div class="container row m-auto">
+    <div id="poster-block" class="col-6">
+      <img src="no-poster.svg" alt="no-poster"
+           style="height:100%; border-radius:30px;">
+    </div>
+    <div class="col-6" id="info">
+      <div class="" id="modal-title">
+        <h1><%= movie.title %></h1>
+      </div>
     </div>
   </div>
-  <div class="d-inline-block" id="info">
-    <div class="" id="modal-title">
-      <%= movie.title %>
-    </div>
-    <%= link_to "Add", movies_path(movie: movie_params, list_id: params[:list_id]),
-                       remote: true,
-                       method: :post %>
+</div>
+ -->
+ <img
+      class="close-movie-details"
+      id="close-movie-details"
+      src="icons/cross.svg"
+      alt="Delete"
+      style="height:42px; top: 5%;position: absolute;left: 90%;">
+
+<div id="movie-details" class="movie-grid d-flex" style="width: 50vw;">
+  <div id="poster-holder" class="grid-item--movie d-inline">
+    <img src="no-poster.svg" alt="no-poster"
+         style="width: inherit"
+         class="img-responsive">
   </div>
-</div> -->
+
+  <div id="movie-info" class="grid-item--movie p-3 d-inline">
+    <h1> <%= movie.title %> </h1>
+  </div>
+</div>

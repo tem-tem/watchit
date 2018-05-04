@@ -25,6 +25,7 @@ var open_modal;
 var follow_mouse;
 var currentMousePos = { x: -1, y: -1 };
 var shifted = false;
+var shifted_list = false;
 
 $(document).ready(function(){
   var keys = [];
@@ -34,7 +35,6 @@ $(document).ready(function(){
   var cache = {};
 
   $.FlashMessage = function(key, message){
-    console.log(key, message);
     var color = "class=text-"+key;
     var div = "<div " + color + " style='white-space:nowrap; overflow:hidden;'>" + message + "</div>";
     $("#flash-message").html(div);
@@ -81,7 +81,7 @@ $(document).ready(function(){
 
             select: function(event, ui){
               $.CloseInput();
-              $.ShowMovie(ui.item, list_id_param);
+              $.CreateMovie(ui.item, list_id_param);
             }
           }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
               var postersrc = "https://image.tmdb.org/t/p/w154/" + item.poster;
@@ -106,14 +106,14 @@ $(document).ready(function(){
     });
   }
 
-  $.ShowMovie = function(movie, list){
+  $.CreateMovie = function(movie, list){
     var data = {
       title: movie.label,
       show: movie.show,
       tmdb_id: movie.id,
       poster_path: movie.poster
     };
-    // shows movie
+    // create or find movie
     $.ajax({
       url: "/movies",
       type: 'POST',
@@ -152,10 +152,21 @@ $(document).ready(function(){
     list_id_param = 0;
   }
 
+  $.HideModal = function(el){
+    el.animate({
+      opacity: 0
+    }, 100, function(){
+      el.hide();
+    });
+    $("body").css({
+      overflow: "auto"
+    });
+  }
+
   $(document).keyup(function(e) {
     if (e.keyCode == 27) {
       if (query_bg.is(":hidden")){
-        $.DropModal(open_modal);
+        $.HideModal(open_modal);
       } else {
         $.CloseInput();
         list_id_param = 0;
@@ -183,24 +194,67 @@ $(document).ready(function(){
       left: 0
     }, 200);
     this.removeClass( "is-shifted" );
+    this.parent().removeClass( "border-left" );
   };
 
+  $.fn.shiftbacklist = function(){
+    $(this).find(".list-buttons").animate({
+      top: "-40px"
+    }, 200);
+
+    $(this).find(".list-head").animate({
+      top: 0
+    }, 200);
+
+    this.removeClass( "is-shifted" );
+  }
+
   $(document).click(function(event){
-    if ((shifted) && (!$(event.target).parent().parent().parent().hasClass( "is-shifted" ))) {
+    if ((shifted) && (!$("#movie-list-" + $(event.target).attr("id")).hasClass( "is-shifted" ))) {
       shifted.shiftback();
       shifted = false;
     }
+
+    if ((shifted_list) && (!$("#list-" + $(event.target).attr("id")).hasClass( "is-shifted" ))){
+      shifted_list.shiftbacklist();
+      shifted_list = false;
+    }
   });
 
-  $(".movie-in-list-delete").click(function(event) {
+  $(document).on('click', '.movie-in-list-delete', function(event){
     if (shifted){
       shifted.shiftback();
     }
-    shifted = $(event.target).parent().parent().parent();
+    shifted = $("#movie-list-" + $(event.target).attr("id"));
     shifted.addClass( "is-shifted" );
+    shifted.parent().addClass( "border-left" );
     shifted.animate({
       left: "-100px"
     }, 320);
+  });
+
+
+  $(document).on('click', '#close-movie-details', function(event){
+    $.HideModal(open_modal);
+  });
+
+  $(document).on('click', '.list-title', function(event){
+
+    if (shifted_list){
+      shifted_list.shiftbacklist();
+    }
+
+    shifted_list = $("#list-" + $(event.target).attr("id"));
+
+    shifted_list.addClass( "is-shifted" );
+    $(shifted_list).find(".list-buttons").animate({
+      top: 0
+    }, 320);
+
+    $(shifted_list).find(".list-head").animate({
+      top: "40px"
+    }, 320);
+
   });
 
 });

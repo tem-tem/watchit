@@ -1,31 +1,12 @@
 <% provide(:title, "Your profile") %>
 
-<!-- <%= link_to 'Create List', new_user_list_path(current_user) %>
-<%= link_to 'My Lists', user_lists_path(current_user) %>
-<%= link_to 'Add Movie', new_movie_path %>
-<%= link_to 'All Movies', movies_path %> -->
-
-<!-- <%= @user.name %>,
-<% if @user == current_user || current_user.admin? %>
-  <%= @user.email %>
-<% else %>
-  you are not allowed to see email
-<% end %> -->
-
-<% if @user.lists.any? %>
-  <div class="lists grid masonry" style="padding-top:30px">
+<div class="lists grid masonry" style="padding-top:30px">
+  <% if @user.lists.any? %>
     <%= render @lists %>
-  </div>
-<% end %>
+  <% end %>
+</div>
 
-<div id="movie-details-modal-holder"></div>
-
-<!-- <div id="test_move" style="box-shadow: 0 10px 20px rgba(0,0,0,0.2); position:absolute; z-index:9999; background-color:#f8f8f8;font-size:3em;border-radius:10px;">
-  <div style="font-weight: 900">
-    Test placeholder
-  </div>
-</div> -->
-
+<div id="movie-details-holder"></div>
 
 <div id="humongous-input-holder" style="display: none">
   <div class="humongous-input-background">
@@ -37,5 +18,9 @@
   $('.grid').masonry({
     // options
     itemSelector: '.grid-item'
+  });
+
+  $(document).on('click', '#cancel-list-create', function(event){
+    $("#top-menu").html("<%= j render partial: 'layouts/top_menu' %>");
   });
 </script>

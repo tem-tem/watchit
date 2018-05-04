@@ -5,16 +5,26 @@
     <%= csrf_meta_tags %>
     <%= yield :head %>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <div class="container-fluid">
-      <%= render '/layouts/header' %>
+      <div
+        class="justify-content-between row border-bottom top-menu"
+        id="top-menu">
+        <%= render '/layouts/top_menu' %>
+      </div>
 
-      <%= yield %>
-
+      <div class="my-5" style="min-height: 80vh">
+        <%= yield %>
+      </div>
+      <div class="justify-content-between row border-top footer">
+        <%= render 'layouts/footer' %>
+      </div>
       <!-- <%= debug(params) if Rails.env.development? %> -->
     </div>
   </body>

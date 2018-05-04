@@ -1,13 +1,32 @@
 var poster_path = "<%= j @movie.poster_path %>"
 var poster_780 = "https://image.tmdb.org/t/p/w780" + poster_path;
 
-$("#movie-details-modal-holder")
-  .html("<%= j render partial:'movies/movie_details', locals: {movie: @movie} %>");
+$("#movie-details-holder")
+  .html("<%= j render @movie %>");
 
-open_modal = $("#movie-details-modal");
+open_modal = $("#movie-details-holder");
 
-$("#movie-details-modal").show(300, 'easeOutExpo', function(){
-    if (poster_path) {
-      $("#movie-poster").html($('<img>',{id: "poster", src: poster_780}));
-    }
+open_modal.show(function() {
+
+    open_modal.animate({
+      opacity: 1
+    }, 100, function() {
+      $("body").css({
+        overflow: "hidden"
+      });
+    });
+
+    $("#movie-details").animate({
+      top: "50%"
+    }, 300, function() {
+      open_modal.css({
+        overflow: "auto"
+      });
+      if (poster_path) {
+        $("#poster-holder")
+        .prepend($('<img>',{id: "poster", src: poster_780, class:"img-responsive"}));
+      }
+
+      $('.movie-grid').masonry();
+    });
 });

@@ -1,24 +1,69 @@
-<div class="grid-item">
-  <div id="list-<%= list.id %>">
-    <div class="title border-bottom position-sticky">
-      <div class="row">
-        <div class="col">
-          <div class="list-title">
-            <%= list.title %>
-          </div>
-          <div class="text-right add-movie-button">
-            <%= link_to "Add Movie", new_movie_list_path(list_id: list.id), remote: true %>
-          </div>
+<div class="grid-item mx-4" id="list-<%= list.id %>">
+  <div>
+    <div class="list-buttons-wrap">
+      <div class="list-buttons d-flex">
+
+        <%= link_to [current_user, list],
+            class: "d-inline-flex list-button",
+            method: :delete,
+            remote: true do %>
+          <div class="m-auto">Delete</div>
+        <% end %>
+
+        <%= link_to [:edit, current_user, list],
+            class: "d-inline-flex list-button",
+            remote: true do %>
+          <div class="m-auto">Rename</div>
+        <% end %>
+
+        <%= link_to list,
+            class: "d-inline-flex list-icon",
+            target: "_blank" do %>
+          <div class="m-auto">L</div>
+        <% end %>
+
+        <div class="d-inline-flex list-icon">
+          <img class="m-auto btn"
+               src="icons/cross.svg"
+               alt="Close"
+               style="height:24px">
+        </div>
+
+      </div>
+    </div>
+
+    <div class="list-head-wrap border-bottom" style="overflow: hidden">
+      <div class="list-head" style="position: relative">
+        <div class="list-title" id="<%= list.id %>">
+          <%= list.title %>
+        </div>
+        <div class="text-right add-movie-button">
+          <%= link_to "Add Movie", new_movie_list_path(list_id: list.id), remote: true %>
         </div>
       </div>
     </div>
 
     <div id="movies-holder" class="movies-list border-bottom">
       <%if list.movie_lists.any? %>
+
         <% list.movie_lists.each do |movie_list| %>
-          <%= render movie_list %>
+          <% unless movie_list.seen %>
+            <%= render movie_list %>
+          <% end %>
         <% end %>
+
       <% end %>
+
+      <div id="seen">
+        <%if list.movie_lists.any? %>
+            <% list.movie_lists.each do |movie_list| %>
+              <% if movie_list.seen %>
+                <%= render movie_list %>
+              <% end %>
+            <% end %>
+        <% end %>
+      </div>
+
     </div>
   </div>
 </div>

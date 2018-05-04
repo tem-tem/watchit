@@ -1,20 +1,2 @@
 list_id_param = "<%= j params[:list_id] %>";
-//
-// if (hanging_movie_id != 0){
-//   // add hanging movie to list
-//
-//   $.ajax({
-//     url: "/movie_lists",
-//     type: "POST",
-//     headers: { 'X-CSRF-Token': Rails.csrfToken() },
-//     data: {movie_id: hanging_movie_id,
-//            list_id: list_id_param}
-//     });
-//   list_id_param = 0;
-//   <% params.delete :list_id %>
-//   $.CloseModal(open_modal);
-//
-// } else {
-//   $.ShowInput();
-// }
 $.ShowInput();

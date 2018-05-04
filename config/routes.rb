@@ -12,13 +12,13 @@ Rails.application.routes.draw do
   resources :users do
     resources :lists
   end
-  resources :lists
+  resources :lists, only: :show
   resources :lists do
     resources :movies
   end
   resources :movie_lists
   resources :movies
-  
+
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [ :new, :create, :edit, :update]
 end

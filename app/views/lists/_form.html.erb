@@ -1,5 +1,22 @@
-<%= form_for [current_user, @list] do |f| %>
-  <%= f.text_field :title %>
-  <%= f.check_box :is_private %>
-  <%= f.submit 'ok' %>
-<% end %>
+<div class="col-auto">
+  <div id="flash-message" style="display:none;"></div>
+</div>
+<div class="col-auto d-flex">
+
+  <img class="d-inline-block my-auto px-3 btn"
+       id="cancel-list-create"
+       src="icons/cross.svg"
+       alt="Cancel"
+       style="height:24px">
+
+  <%= form_for [current_user, @list],
+      remote: true,
+      class: "d-inline-block" do |f| %>
+  <%= f.text_field :title,
+      placeholder: "List title...",
+      autofocus: true,
+      size: 40,
+      class:"list-input-title" %>
+  <%= f.submit class:"list-input-button btn"%>
+  <% end %>
+</div>

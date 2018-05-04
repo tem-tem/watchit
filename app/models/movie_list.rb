@@ -6,4 +6,9 @@ class MovieList < ApplicationRecord
                       case_sensetive: false,
                       message: 'is already in this list.'}
   default_scope { order("created_at DESC") }
+
+  def seen?
+    self.seen ? "movie-list-seen" : ""
+  end
+
 end

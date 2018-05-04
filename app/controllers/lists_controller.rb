@@ -10,17 +10,19 @@ class ListsController < ApplicationController
 
   def new
     @list = current_user.lists.build if logged_in?
+    respond_to :js
   end
 
   def create
-    @list = current_user.lists.build(list_params)
-    if @list.save
-      flash[:success] = "List created!"
-      redirect_to root_path
-    else
-      flash[:danger] = @list.errors.full_messages
-      render :new
-    end
+    @list = current_user.lists.create(list_params)
+      respond_to do |format|
+        format.js {
+          unless @list.save
+            flash.now[:danger] = @list.errors.full_messages.to_sentence
+          end
+        }
+      end
+    # debugger
   end
 
   def edit
@@ -30,24 +32,12 @@ class ListsController < ApplicationController
   def update
     @list = current_user.lists.find(params[:id])
     @list.update(list_params)
-    if @list.valid?
-      flash[:success] = "List #{@list.title} has been updated!"
-      redirect_to user_lists_path(current_user)
-    else
-      flash[:danger] = @list.errors.full_messages
-      render :edit
-    end
+    flash[:danger] = @list.errors.full_messages.to_sentence unless @list.valid?
   end
 
   def destroy
     @list = current_user.lists.find(params[:id])
-    if @list
-      flash[:success] = "List #{@list.title} has been deleted"
-      @list.destroy
-      redirect_to user_lists_path(current_user)
-    else
-      flash[:danger] = 'Something went wrong'
-    end
+    flash[:danger] = 'Something went wrong' unless @list.destroy
   end
 
   private

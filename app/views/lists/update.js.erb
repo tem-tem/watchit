@@ -1,0 +1,9 @@
+var error = "<%= j flash.now[:danger] %>";
+
+if (error) {
+  $.FlashMessage("danger", error);
+
+} else {
+  $("#list-<%= j @list.id.to_s %> .list-title").html("<%= j @list.title %>")
+  $("#top-menu").html("<%= j render partial: 'layouts/top_menu' %>");
+}
