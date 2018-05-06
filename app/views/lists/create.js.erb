@@ -1,15 +1,8 @@
-console.log("HELLO");
-var error = "<%= j flash.now[:danger] %>";
 
-if (error) {
-  $.FlashMessage("danger", error);
-
-} else {
-  $("#top-menu").html("<%= j render partial: 'layouts/top_menu' %>");
-  $(".lists").prepend("<%= j render @list %>");
-  new_list = $("#list-<%= j @list.id.to_s %>");
-  $(".grid").masonry()
-    .prepend( new_list )
-    .masonry( 'prepended', new_list )
-    .masonry();
-}
+$("#top-menu").html("<%= j render partial: 'layouts/top_menu' %>");
+$(".lists").prepend("<%= j render @list %>");
+new_list = $("#list-<%= j @list.id.to_s %>");
+$(".grid").masonry()
+  .prepend( new_list )
+  .masonry( 'prepended', new_list )
+  .masonry();

@@ -12,11 +12,11 @@
   <%= form_for [current_user, @list],
       remote: true,
       class: "d-inline-block" do |f| %>
-  <%= f.text_field :title,
-      placeholder: "List title...",
-      autofocus: true,
-      size: 40,
-      class:"list-input-title" %>
-  <%= f.submit class:"list-input-button btn"%>
+    <%= f.text_field :title,
+        placeholder: "List title...",
+        autofocus: true,
+        size: 40,
+        class:"list-input-title" %>
+    <%= f.submit class:"list-input-button btn"%>
   <% end %>
 </div>

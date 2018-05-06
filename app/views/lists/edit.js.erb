@@ -1,2 +1,9 @@
-$("#top-menu").html("<%= j render partial: 'lists/form', locals: {new_list: @list} %>");
-$(".list-input-title").focus();
+var error = "<%= j flash.now[:danger] %>";
+
+if (error) {
+  $.FlashMessage("danger", error);
+  <% flash.discard %>
+} else {
+  $("#top-menu").html("<%= j render partial: 'lists/form', locals: {new_list: @list} %>");
+  $(".list-input-title").focus();
+}

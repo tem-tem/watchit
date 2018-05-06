@@ -14,11 +14,12 @@ class ListsController < ApplicationController
   end
 
   def create
-    @list = current_user.lists.create(list_params)
+    @list = current_user.lists.build(list_params)
       respond_to do |format|
         format.js {
           unless @list.save
             flash.now[:danger] = @list.errors.full_messages.to_sentence
+            render :new
           end
         }
       end
@@ -32,7 +33,14 @@ class ListsController < ApplicationController
   def update
     @list = current_user.lists.find(params[:id])
     @list.update(list_params)
-    flash[:danger] = @list.errors.full_messages.to_sentence unless @list.valid?
+      respond_to do |format|
+        format.js {
+          unless @list.valid?
+            flash[:danger] = @list.errors.full_messages.to_sentence
+            render :edit
+          end
+        }
+      end
   end
 
   def destroy

@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
   #     flash.now[:danger] = movielist.errors.full_messages
   #   end
   # end
+
+  def flasherror
+    
+  end
 end

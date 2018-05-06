@@ -6,7 +6,7 @@
       <div id="flash-message" style="display:none;"></div>
     </div>
     <div class="col-auto" id="new-list">
-      <%= link_to "New List", new_user_list_path(current_user),
+      <%= link_to "New List", [:new, current_user, :list],
       remote: true %>
     </div>
   <% else %>
