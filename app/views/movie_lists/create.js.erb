@@ -2,7 +2,12 @@ var error = "<%= j flash.now[:danger] %>";
 
 if (error) {
   $.FlashMessage("danger", error);
+  $("#add-movie-input").val('');
 } else {
+  $("#add-movie-input-" + list_id_param)
+    .removeClass("border-bottom");
+
+  $("#add-movie-input-" + list_id_param).html("");
   $("#list-<%= j @movielist.list.id.to_s %> #movies-holder")
     .prepend("<%= j render @movielist %>");
   $('.grid').masonry();

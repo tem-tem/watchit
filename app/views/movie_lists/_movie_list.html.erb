@@ -4,7 +4,8 @@
         <div class="align-middle movie-in-list-eye d-inline my-auto">
           <%= link_to movie_list,
                 method: :patch,
-                remote: true do %>
+                remote: true,
+                class: "tem-btn btn" do %>
             W
           <% end %>
         </div>
@@ -29,7 +30,7 @@
       <%= link_to movie_list,
             method: :delete,
             remote: true,
-            class: "movie-in-list-delete-red align-middle text-light bg-danger d-inline-flex",
+            class: "movie-in-list-delete-red align-middle text-danger d-inline-flex",
             style: "float:right;padding: 0 15px;" do %>
         <div class="movie-in-list my-auto">Delete</div>
       <% end %>

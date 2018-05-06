@@ -1,6 +1,8 @@
-<div class="col-auto">
-  <%= link_to "Log out", logout_path, method: :delete %>
-</div>
+<% if logged_in? %>
+  <div class="col-auto tem-btn btn">
+    <%= link_to "Log out", logout_path, method: :delete %>
+  </div>
+<% end %>
 <div class="col-auto">
   About
 </div>

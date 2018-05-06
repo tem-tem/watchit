@@ -26,6 +26,7 @@ var follow_mouse;
 var currentMousePos = { x: -1, y: -1 };
 var shifted = false;
 var shifted_list = false;
+var movie_input = false;
 
 $(document).ready(function(){
   var keys = [];
@@ -49,6 +50,7 @@ $(document).ready(function(){
     query_input.autocomplete({
       delay: 500,
       minLength: 3,
+      autoFocus: true,
       source: function( request, response ) {
         var query = query_input.val();
         if ( query in cache ) {
@@ -233,6 +235,18 @@ $(document).ready(function(){
     }, 320);
   });
 
+  $.CloseMovieInput = function() {
+    if (movie_input) {
+      movie_input.html("");
+      movie_input = false;
+      $('.grid').masonry();
+      
+    }
+  }
+
+  $(document).on('click', '#cancel-movie-list-create', function(event){
+    $.CloseMovieInput();
+  });
 
   $(document).on('click', '#close-movie-details', function(event){
     $.HideModal(open_modal);

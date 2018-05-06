@@ -1,28 +1,31 @@
-<div class="grid-item mx-4" id="list-<%= list.id %>">
+<div class="grid-item mx-2" id="list-<%= list.id %>">
   <div>
     <div class="list-buttons-wrap">
       <div class="list-buttons d-flex">
 
         <%= link_to [current_user, list],
-            class: "d-inline-flex list-button",
+            class: "d-inline-flex list-button tem-btn btn text-danger",
             method: :delete,
             remote: true do %>
           <div class="m-auto">Delete</div>
         <% end %>
 
         <%= link_to [:edit, current_user, list],
-            class: "d-inline-flex list-button",
+            class: "d-inline-flex list-button tem-btn btn",
             remote: true do %>
           <div class="m-auto">Rename</div>
         <% end %>
 
         <%= link_to list,
-            class: "d-inline-flex list-icon",
+            class: "d-inline-flex list-icon tem-btn",
             target: "_blank" do %>
-          <div class="m-auto">L</div>
+          <img class="m-auto btn"
+               src="icons/share-arrow.svg"
+               alt="Open in new window"
+               style="height:36px">
         <% end %>
 
-        <div class="d-inline-flex list-icon">
+        <div class="d-inline-flex list-icon tem-btn ">
           <img class="m-auto btn"
                src="icons/cross.svg"
                alt="Close"
@@ -38,10 +41,14 @@
           <%= list.title %>
         </div>
         <div class="text-right add-movie-button">
-          <%= link_to "Add Movie", new_movie_list_path(list_id: list.id), remote: true %>
+          <%= link_to "Add Movie", new_movie_list_path(list_id: list.id),
+              remote: true,
+              class: "tem-btn btn" %>
         </div>
       </div>
     </div>
+
+    <div id="add-movie-input-<%= list.id %>" class="d-flex"></div>
 
     <div id="movies-holder" class="movies-list border-bottom">
       <%if list.movie_lists.any? %>

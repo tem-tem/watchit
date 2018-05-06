@@ -1,2 +1,76 @@
 list_id_param = "<%= j params[:list_id] %>";
-$.ShowInput();
+tmdbAPI = "https://api.themoviedb.org/3/search/multi";
+keys = [];
+cache = {};
+
+$.CloseMovieInput();
+
+movie_input = $("#add-movie-input-<%= j params[:list_id] %>");
+movie_input.addClass("border-bottom");
+movie_input.html("<%= j render 'movie_lists/form' %>");
+$('.grid').masonry();
+
+$("#add-movie-input").focus();
+
+$("#add-movie-input").autocomplete({
+  delay: 200,
+  minLength: 2,
+  autoFocus: true,
+  source: function( request, response ) {
+    var query = $("#add-movie-input").val();
+    if ( query in cache ) {
+      response( cache[ query ] );
+      return;
+    }
+
+    $.get( tmdbAPI, {
+      api_key: "018f051c7c89b548ff708f984dfbf56f",
+      query: $("#add-movie-input").val() } )
+      .done(function(data){
+        movie_titles = [];
+        $.each(data.results.slice(0, 5), function(key, movie){
+          movie_title = {
+            id: movie.id,
+            poster: movie.poster_path
+          }
+          if (movie.media_type == "movie") {
+              movie_title["show"] = false,
+              movie_title["label"] = movie.title,
+              movie_title["original_title"] = movie.original_title,
+              movie_title["year"] = movie.release_date.slice(0,4)
+            } else if (movie.media_type == "tv") {
+              movie_title["show"] = true,
+              movie_title["label"] = movie.name,
+              movie_title["original_title"] = movie.original_name,
+              movie_title["year"] = movie.first_air_date.slice(0,4)
+              }
+          movie_titles.push(movie_title);
+            });
+            cache[ query ] = movie_titles;
+            response( movie_titles );
+          });
+        },
+
+        select: function(event, ui){
+          $.CloseInput();
+          $.CreateMovie(ui.item, list_id_param);
+        }
+      }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+          // var postersrc = "https://image.tmdb.org/t/p/w154/" + item.poster;
+          // var poster = "<div class='col-4' style='height:100%;'> <img class='autocomplete-poster' src='" + postersrc + "' /> </div>";
+          title = "<div style='font-size:1.4em'>" + item.label + "</div>";
+          if (item.show){
+            title = "<div style='font-size:1.4em'>" + item.label + "<sup style='opacity:0.3'>TV</sup></div>";
+          }
+          info = item.original_title + " | " + item.year
+          little_text = "<div style='font-size:0.9em'>" + info + "</div>";
+          text_info = "<div>" + title + little_text + "</div>";
+
+          var full_info = "<div class='' style=''>" + text_info + "</div>";
+
+          return $( "<li class=''></li>" )
+              .data( "item.autocomplete", item )
+              .append(full_info)
+              .appendTo( ul );
+
+        };

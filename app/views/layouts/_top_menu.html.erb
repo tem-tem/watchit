@@ -1,15 +1,18 @@
+<div class="col-auto my-auto" style="font-weight: 900">
+  3000LISTEDFILMS
+</div>
   <% if logged_in? %>
-    <div class="col-auto" style="font-weight: 900">
-      3000LISTEDFILMS
-    </div>
-    <div class="col-auto">
+    <div class="col-auto my-auto">
       <div id="flash-message" style="display:none;"></div>
     </div>
-    <div class="col-auto" id="new-list">
+    <div class="col-auto my-auto tem-btn btn" id="new-list">
       <%= link_to "New List", [:new, current_user, :list],
       remote: true %>
     </div>
   <% else %>
+  <div class="col-auto my-auto tem-btn btn">
     <%= link_to "sign up", signup_path %>
+    |
     <%= link_to "log in", login_path %>
+  </div>
   <% end %>
