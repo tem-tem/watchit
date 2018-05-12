@@ -25,7 +25,9 @@ var open_modal;
 var follow_mouse;
 var currentMousePos = { x: -1, y: -1 };
 var shifted = false;
+var shifted_id = false;
 var shifted_list = false;
+var shifted_list_id = false;
 var movie_input = false;
 
 $(document).ready(function(){
@@ -197,6 +199,7 @@ $(document).ready(function(){
     }, 200);
     this.removeClass( "is-shifted" );
     this.parent().removeClass( "border-left" );
+    shifted_id = false;
   };
 
   $.fn.shiftbacklist = function(){
@@ -207,7 +210,7 @@ $(document).ready(function(){
     $(this).find(".list-head").animate({
       top: 0
     }, 200);
-
+    shifted_list_id = false;
     this.removeClass( "is-shifted" );
   }
 
@@ -224,15 +227,21 @@ $(document).ready(function(){
   });
 
   $(document).on('click', '.movie-in-list-delete', function(event){
-    if (shifted){
+
+    if ( $(event.target).attr("id") == shifted_id ) {
       shifted.shiftback();
+    } else {
+      if (shifted){
+        shifted.shiftback();
+      }
+      shifted_id = $(event.target).attr("id");
+      shifted = $("#movie-list-" + shifted_id);
+      shifted.addClass( "is-shifted" );
+      shifted.parent().addClass( "border-left" );
+      shifted.animate({
+        left: "-100px"
+      }, 320);
     }
-    shifted = $("#movie-list-" + $(event.target).attr("id"));
-    shifted.addClass( "is-shifted" );
-    shifted.parent().addClass( "border-left" );
-    shifted.animate({
-      left: "-100px"
-    }, 320);
   });
 
   $.CloseMovieInput = function() {
@@ -240,7 +249,7 @@ $(document).ready(function(){
       movie_input.html("");
       movie_input = false;
       $('.grid').masonry();
-      
+
     }
   }
 
@@ -253,21 +262,24 @@ $(document).ready(function(){
   });
 
   $(document).on('click', '.list-title', function(event){
-
-    if (shifted_list){
+    if (shifted_list_id == $(event.target).attr("id")){
       shifted_list.shiftbacklist();
+    } else {
+      if (shifted_list){
+        shifted_list.shiftbacklist();
+      }
+      shifted_list_id = $(event.target).attr("id");
+      shifted_list = $("#list-" + shifted_list_id);
+
+      shifted_list.addClass( "is-shifted" );
+      $(shifted_list).find(".list-buttons").animate({
+        top: 0
+      }, 320);
+
+      $(shifted_list).find(".list-head").animate({
+        top: "40px"
+      }, 320);
     }
-
-    shifted_list = $("#list-" + $(event.target).attr("id"));
-
-    shifted_list.addClass( "is-shifted" );
-    $(shifted_list).find(".list-buttons").animate({
-      top: 0
-    }, 320);
-
-    $(shifted_list).find(".list-head").animate({
-      top: "40px"
-    }, 320);
 
   });
 

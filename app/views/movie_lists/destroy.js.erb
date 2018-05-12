@@ -2,7 +2,8 @@ var movielist = $("#movie-list-<%= j @movielist.id.to_s %>");
 movielist.css("position", "relative");
 movielist.animate({
   opacity: 0,
-  left: "-550px"
+  left: "-550px",
+  height: 0
 }, 350, function() {
   movielist.remove();
   $('.grid').masonry({

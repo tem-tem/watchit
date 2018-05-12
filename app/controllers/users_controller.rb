@@ -24,16 +24,13 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      # log_in @user
-      # flash[:success] = 'Welcome Home'
-      # redirect_to root_path
       @user.send_activation_email
       UserMailer.account_activation(@user).deliver_now
       flash[:info] = "Please check your email to activate your account."
       redirect_to root_url
-
     else
-      render 'new'
+      flash[:danger] = @user.errors.full_messages.to_sentence
+      redirect_to '/signup'
     end
   end
 
@@ -60,8 +57,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation)
+      params.require(:user).permit(:name, :email, :password)
     end
 
     # Before filters

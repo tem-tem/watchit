@@ -216,11 +216,12 @@ a:hover{
 .movie-in-list-eye{
   width:42px;
   height: 36px;
+  opacity: 0.3;
 }
 .movie-in-list-delete{
   width:42px;
   height: 36px;
-  opacity:0;
+  opacity:0.1;
   text-align: center;
   cursor: pointer;
 

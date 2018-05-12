@@ -1,3 +1,16 @@
-<div class="mx-auto">
-  <%= render @list %>
+<div class="container my-2">
+  <div class="border-bottom mx-auto"
+    style="font-weight: 900;font-size: 4em;">
+    <%= @list.title %>
+  </div>
+
+  <% if @list.movie_lists.any? %>
+  <% @list.movie_lists.each do |movie_list| %>
+  <div class="py-3 movie-list-movie-title"
+    style="font-size: 2em;">
+    <%= movie_list.movie.title %>
+  </div>
+  <% end %>
+  <% end %>
+
 </div>

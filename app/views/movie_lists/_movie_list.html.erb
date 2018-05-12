@@ -5,8 +5,11 @@
           <%= link_to movie_list,
                 method: :patch,
                 remote: true,
-                class: "tem-btn btn" do %>
-            W
+                class: "tem-btn" do %>
+            <%=image_tag("eye#{movie_list.seen ? '' : '_closed'}.svg",
+                class: "m-auto btn",
+                height: "32px") %>
+
           <% end %>
         </div>
 
@@ -20,11 +23,11 @@
 
         <div class="align-middle movie-in-list-delete d-inline-block my-auto"
              id="<%= movie_list.id %>">
-          <img class="d-inline-block"
-               id="<%= movie_list.id %>"
-               src="icons/cross.svg"
-               alt="Delete"
-               style="height:16px">
+          <%= image_tag("cross.svg",
+                class: "d-inline-block",
+                height: "16px",
+                id: movie_list.id) %>
+
         </div>
       </div>
       <%= link_to movie_list,

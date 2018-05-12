@@ -19,17 +19,11 @@
         <%= link_to list,
             class: "d-inline-flex list-icon tem-btn",
             target: "_blank" do %>
-          <img class="m-auto btn"
-               src="icons/share-arrow.svg"
-               alt="Open in new window"
-               style="height:36px">
+         <%=image_tag("share.svg", class: "m-auto btn", height: "24px") %>
         <% end %>
 
         <div class="d-inline-flex list-icon tem-btn ">
-          <img class="m-auto btn"
-               src="icons/cross.svg"
-               alt="Close"
-               style="height:24px">
+          <%=image_tag("cross.svg", class: "m-auto btn", height: "24px") %>
         </div>
 
       </div>

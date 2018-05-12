@@ -1,13 +1,16 @@
 class MoviesController < ApplicationController
   respond_to :js
-
-  def index
-    @movies = Movie.all
-  end
+  #
+  # def index
+  #   @movies = Movie.all
+  # end
 
   def show
-    @movie = Movie.find(params[:id])
-    respond_with( @movie )
+    respond_to do |format|
+      format.js{
+        @movie = Movie.find(params[:id])
+      }
+    end
   end
 
   def create

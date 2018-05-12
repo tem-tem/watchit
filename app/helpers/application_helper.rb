@@ -6,4 +6,8 @@ module ApplicationHelper
   #   "&query=#{query}",
   #   "&page=1&include_adult=true"].join()
   # end
+
+  def current_controller?(name)
+    (controller_name == name)? true : false
+  end
 end

@@ -1,10 +1,10 @@
 
- <img
-      class="close-movie-details"
-      id="close-movie-details"
-      src="icons/cross.svg"
-      alt="Delete"
-      style="height:42px; top: 5%;position: absolute;left: 90%;">
+  <%=image_tag("cross.svg",
+      class: "m-auto btn",
+      id: "close-movie-details",
+      style: "height:42px; top: 5%;position: absolute;left: 90%;",
+      height: "24px") %>
+
 
 <div id="movie-details" class="movie-grid d-flex" style="width: 50vw;">
   <div id="poster-holder" class="grid-item--movie d-inline">

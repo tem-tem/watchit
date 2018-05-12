@@ -1,7 +1,8 @@
-<div class="col-auto my-auto" style="font-weight: 900">
-  3000LISTEDFILMS
-</div>
+
   <% if logged_in? %>
+    <div class="col-auto my-auto" style="font-weight: 900">
+      <%= link_to current_user.name, root_path %>
+    </div>
     <div class="col-auto my-auto">
       <div id="flash-message" style="display:none;"></div>
     </div>
@@ -10,6 +11,10 @@
       remote: true %>
     </div>
   <% else %>
+  <div class="col-auto my-auto" style="font-weight: 900">
+    <%= link_to "3000LISTEDFILMS", root_path %>
+
+  </div>
   <div class="col-auto my-auto tem-btn btn">
     <%= link_to "sign up", signup_path %>
     |
