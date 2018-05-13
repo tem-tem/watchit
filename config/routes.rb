@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  default_url_options :host => "localhost:3000"
+  # default_url_options :host => "localhost:3000"
 
   root 'users#show'
   get '/signup', to: 'users#new'
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :lists
   end
-  
+
   resources :lists, only: [:show] do
     resources :movies
   end
