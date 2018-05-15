@@ -24,13 +24,13 @@
   }
   @font-face {
      font-family: 'Akzidenz-Grotesk-Pro';
-     src:url('AkzidenzGroteskPro-Bold.otf') unquote("format('opentype')");;
+     src:font-url('AkzidenzGroteskPro-Bold.otf') unquote("format('opentype')");;
      font-weight: 200;
      font-style: 200;
    }
    @font-face {
       font-family: 'Akzidenz-Grotesk-Pro';
-      src:url('AkzidenzGroteskPro-Super.otf') unquote("format('opentype')");;
+      src:font-url('AkzidenzGroteskPro-Super.otf') unquote("format('opentype')");;
       font-weight: 900;
       font-style: 900;
     }
