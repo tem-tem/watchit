@@ -22,4 +22,6 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: temlist_production
+  username: temlist
+  password: <%= ENV['TEMLIST_DATABASE_PASSWORD'] %>
